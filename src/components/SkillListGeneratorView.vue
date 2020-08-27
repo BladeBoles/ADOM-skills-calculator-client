@@ -14,8 +14,9 @@
       }}</option>
     </select>
     <p :playerClass="selectedClass" :playerRace="selectedRace">
-      You have chosen a {{ selectedRace }} {{ selectedClass }}
+      You have chosen {{ selectedCombo }}
     </p>
+    <div :startingSkills="startingSkills">{{ startingSkills }}</div>
   </div>
 </template>
 
@@ -40,7 +41,8 @@ export default {
       })
       this.skillsList = newArray
       console.log(this.skillsList)
-    }
+    },
+    findStartingSkills() {}
   },
   data() {
     return {
@@ -497,7 +499,26 @@ export default {
       selectedRace: 'Human'
     }
   },
-  computed: {},
+  computed: {
+    selectedCombo() {
+      return this.selectedRace + ' ' + this.selectedClass
+    },
+    doNothing() {
+      return 'bo'
+    },
+    startingSkills() {
+      let startingSkillsList = ['none']
+      this.skillsList.foreach(skill => {
+        if (skill.races.includes(this.selectedRace)) {
+          startingSkillsList.push(skill.name)
+        }
+        if (skill.classes.includes(this.selectedClass)) {
+          startingSkillsList.push(skill.name)
+        }
+      })
+      return startingSkillsList
+    }
+  },
   mounted() {
     this.fart(this.jsonDump)
   }
