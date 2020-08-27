@@ -1,20 +1,21 @@
 <template>
   <div class="container">
     <div class="hello">Hello there {{ msg }}!</div>
-    <p>Here's a list of races with their skills:</p>
-    <ul class="playableraces">
-      <li v-for="race in playableraces" :key="race.name">
-        Race: {{ race.name }}
-        <br />
-        <br />
-        skills:
-
-        <div v-for="(skill, index) in race.skills" :key="index">
-          {{ skill }}
-        </div>
-        <br />
-      </li>
-    </ul>
+    <label for="player-races">Choose a race: </label>
+    <select v-model="selectedRace" name="player-races" id="chosen-race">
+      <option v-for="playerRace in playableRaces" :key="playerRace">{{
+        playerRace
+      }}</option>
+    </select>
+    <label for="player-classes">Choose a class: </label>
+    <select v-model="selectedClass" name="player-classes" id="chosen-class">
+      <option v-for="playerClass in playableClasses" :key="playerClass">{{
+        playerClass
+      }}</option>
+    </select>
+    <p :playerClass="selectedClass" :playerRace="selectedRace">
+      You have chosen a {{ selectedRace }} {{ selectedClass }}
+    </p>
   </div>
 </template>
 
@@ -44,7 +45,7 @@ export default {
   data() {
     return {
       skillsList: [],
-      playableraces: [
+      raceObjects: [
         {
           name: 'Human',
           skills: ['Climbing', 'Food Preservation', 'Haggling', 'Swimming'],
@@ -138,38 +139,56 @@ export default {
           notes: 'none'
         }
       ],
-      playableclasses: [
-        {
-          name: 'Fighter',
-          skills: [
-            'Archery',
-            'Athletics',
-            'Climbing',
-            'Dodge',
-            'Find Weakness',
-            'First Aid',
-            'Haggling',
-            'Listening',
-            'Metallurgy',
-            'Stealth',
-            'Swimming',
-            'Two Weapon Combat'
-          ],
-          notes: 'none'
-        }
+      playableRaces: [
+        'Human',
+        'Troll',
+        'High Elf',
+        'Gray Elf',
+        'Dark Elf',
+        'Dwarf',
+        'Gnome',
+        'Hurthling',
+        'Orc',
+        'Drakeling',
+        'Mist Elf',
+        'Ratling'
+      ],
+      playableClasses: [
+        'Fighter',
+        'Paladin',
+        'Ranger',
+        'Thief',
+        'Assassin',
+        'Wizard',
+        'Priest',
+        'Bard',
+        'Monk',
+        'Healer',
+        'Weaponsmith',
+        'Archer',
+        'Merchant',
+        'Farmer',
+        'Mindcrafter',
+        'Barbarian',
+        'Druid',
+        'Necromancer',
+        'Elementalist',
+        'Beastfighter',
+        'Duelist',
+        'Chaos Knight'
       ],
       jsonDump: [
         {
-          skill: 'Alchemy',
+          name: 'Alchemy',
           description: 'Allowsbrewingpotionsusingafixedlistofrecipes',
           races: [],
           classes: ['Assassin', 'Merchant', 'Necromancer', 'Wizard'],
           inGame: false
         },
         {
-          skill: 'Alertness',
+          name: 'Alertness',
           description: 'Givesachancetoevadecombatmagicandtrap',
-          races: 'Darkelf,Drakeling,Mistelf',
+          races: 'Dark Elf,Drakeling,Mist Elf',
           classes: [
             'Archer',
             'Assassin',
@@ -182,21 +201,21 @@ export default {
           inGame: false
         },
         {
-          skill: 'Appraising',
+          name: 'Appraising',
           description: 'Performsitemqualityevaluation',
           races: 'Ratling',
           classes: 'Merchant,Necromancer,Thief,Weaponsmith',
           inGame: false
         },
         {
-          skill: 'Archery',
+          name: 'Archery',
           description: 'Grantsmissileattackbonuses',
           races: 'Hurthling',
           classes: 'Archer,Assassin, Farmer,Fighter,Ranger',
           inGame: false
         },
         {
-          skill: 'Athletics',
+          name: 'Athletics',
           description: 'Grantsspeedbonus,helpsphysicalAttributestraining',
           races: 'Troll',
           classes:
@@ -204,21 +223,21 @@ export default {
           inGame: false
         },
         {
-          skill: 'Backstabbing',
+          name: 'Backstabbing',
           description: 'Grantsachancetoinflictbonusdamageonunawareopponents',
           races: 'Orc',
           classes: 'Assassin,ChaosKnight, Thief',
           inGame: true
         },
         {
-          skill: 'Bridgebuilding',
+          name: 'Bridgebuilding',
           description: 'Allowsbuildingbridges',
           races: 'Troll',
           classes: 'Farmer',
           inGame: true
         },
         {
-          skill: 'Climbing',
+          name: 'Climbing',
           description:
             'Grantsachancetoclimboutofpits;prerequisitetoentertheRift',
           races: 'All',
@@ -226,37 +245,37 @@ export default {
           inGame: false
         },
         {
-          skill: 'Concentration',
+          name: 'Concentration',
           description:
             'IncreasesPPregenerationrate;improvesspelllearningprocess',
-          races: 'Mistelf',
+          races: 'Mist Elf',
           classes:
             'Archer,Druid,Duelist,Elementalist,Healer,Mindcrafter,Monk,Necromancer,Paladin,Priest,Weaponsmith,Wizard',
           inGame: false
         },
         {
-          skill: 'Cooking',
+          name: 'Cooking',
           description: 'Allowscookingcorpses',
           races: 'Hurthling',
           classes: 'Healer,Farmer',
           inGame: false
         },
         {
-          skill: 'Courage',
+          name: 'Courage',
           description: 'Reducesto-hitpenaltieswhenfightingwithmultipleenemies',
           races: 'None',
           classes: 'None',
           inGame: true
         },
         {
-          skill: 'Detectitemstatus',
+          name: 'Detectitemstatus',
           description: 'GivesachancetoautomaticallyidentifyB/U/Cstatusofanitem',
           races: 'Ratling',
           classes: 'Merchant,Priest',
           inGame: false
         },
         {
-          skill: 'Detecttraps',
+          name: 'Detecttraps',
           description:
             'Givesachancetofindtrapspassively/onthespecifiedlocation',
           races: 'Dwarf',
@@ -264,44 +283,44 @@ export default {
           inGame: true
         },
         {
-          skill: 'Disarmtraps',
+          name: 'Disarmtraps',
           description: 'Allowsdisarmingtraps',
           races: 'None',
           classes: 'Thief',
           inGame: true
         },
         {
-          skill: 'Dodge',
+          name: 'Dodge',
           description: 'GrantsDVbonus,grantsasmallchancetoavoidcombatmagic',
-          races: 'Highelf,Grayelf,Mistelf',
+          races: 'High Elf,Gray Elf,Mist Elf',
           classes:
             'Archer,Assassin,Barbarian,Beastfighter,ChaosKnight,Duelist,Fighter,Monk,Paladin,Ranger',
           inGame: false
         },
         {
-          skill: 'Findweakness',
+          name: 'Findweakness',
           description: 'Grantsachancetoinflictacriticalhit',
-          races: 'Darkelf,Orc',
+          races: 'Dark Elf,Orc',
           classes:
             'Assassin,ChaosKnight,Duelist,Fighter,Healer,Monk,Necromancer,Weaponsmith',
           inGame: false
         },
         {
-          skill: 'Firstaid',
+          name: 'Firstaid',
           description: 'CanbeusedtorestorerecentlylostHP',
           races: 'All',
           classes: 'All',
           inGame: false
         },
         {
-          skill: 'Fletchery',
+          name: 'Fletchery',
           description: 'Allowscreatingammunitionusingfletcherysets',
           races: 'None',
           classes: 'Archer,Farmer',
           inGame: false
         },
         {
-          skill: 'Foodpreservation',
+          name: 'Foodpreservation',
           description:
             'Increasesthechancetogeneratecorpses,helpspreservecorpseslonger',
           races: 'Drakeling,Human,Hurthling,Troll',
@@ -309,7 +328,7 @@ export default {
           inGame: false
         },
         {
-          skill: 'Gardening',
+          name: 'Gardening',
           description:
             'Allowsplantingherbbushesandgatheringherbseedsfromblossomingbushes',
           races: 'Hurthling',
@@ -317,7 +336,7 @@ export default {
           inGame: true
         },
         {
-          skill: 'Gemology',
+          name: 'Gemology',
           description:
             'Grantsachancetogenerateandautomaticallyidentifygemsfromdigging',
           races: 'Gnome,Troll',
@@ -325,14 +344,14 @@ export default {
           inGame: false
         },
         {
-          skill: 'Haggling',
+          name: 'Haggling',
           description: 'Canbeusedtohagglewithshopkeepers',
           races: 'All',
           classes: 'All',
           inGame: false
         },
         {
-          skill: 'Healing',
+          name: 'Healing',
           description: 'PassivelyrestoresHP',
           races: 'None',
           classes:
@@ -340,7 +359,7 @@ export default {
           inGame: true
         },
         {
-          skill: 'Herbalism',
+          name: 'Herbalism',
           description: 'Improvesthequality(B/U/Cstatus)ofcollectedherbs',
           races: 'None',
           classes:
@@ -348,14 +367,14 @@ export default {
           inGame: true
         },
         {
-          skill: 'Law',
+          name: 'Law',
           description: 'ProvidesmessageswhenthePCperformslawful/chaoticacts',
           races: 'None',
           classes: 'Duelist;Paladinifstartingalignmentislawful',
           inGame: true
         },
         {
-          skill: 'Listening',
+          name: 'Listening',
           description:
             'Increasesthechanceofreceivingaudiblemessages(e.g.poolorriversounds)',
           races: 'All',
@@ -363,72 +382,72 @@ export default {
           inGame: false
         },
         {
-          skill: 'Literacy',
+          name: 'Literacy',
           description: 'Allowsreadingscrolls,spellbooksandinscriptionsongraves',
-          races: 'Highelf,Grayelf,MistelforstartingLearning≥10',
+          races: 'High Elf,Gray Elf,Mist ElforstartingLearning≥10',
           classes:
             'Druid,Elementalist,Healer,Merchant,Mindcrafter,Monk,Necromancer,Paladin,Priest,WizardorstartingLearning≥10;BarbarianandBeastfighteronlyifraceallows',
           inGame: true
         },
         {
-          skill: 'Metallurgy',
+          name: 'Metallurgy',
           description: 'Canbeusedtoidentifyitemmaterialifitismetallic',
           races: 'Dwarf, Orc',
           classes: 'Elementalist,Fighter,Merchant,Weaponsmith',
           inGame: false
         },
         {
-          skill: 'Mining',
+          name: 'Mining',
           description: 'Reducesdiggingtime;increasesthechancetogenerateore',
           races: 'Dwarf,Gnome,Orc,Troll',
           classes: 'None',
           inGame: false
         },
         {
-          skill: 'Music',
+          name: 'Music',
           description: 'Allowsplayingmusicalinstrumentstotameanimals',
           races: 'Drakeling',
           classes: 'Bard,Mindcrafter, Priest',
           inGame: false
         },
         {
-          skill: 'Necromancy',
+          name: 'Necromancy',
           description: 'Canbeusedtocreateundeadslaves',
-          races: 'Mistelf',
+          races: 'Mist Elf',
           classes: 'Necromancer',
           inGame: false
         },
         {
-          skill: 'Picklocks',
+          name: 'Picklocks',
           description: 'Allowstheuseofthievespickstoopenlockeddoors',
           races: 'None',
           classes: 'Assassin,Thief',
           inGame: true
         },
         {
-          skill: 'Pickpockets',
+          name: 'Pickpockets',
           description: 'Canbeusedtostealfromhumanoidenemies',
           races: 'Gnome',
           classes: 'Merchant,Thief',
           inGame: true
         },
         {
-          skill: 'Smithing',
+          name: 'Smithing',
           description: 'Canbeappliedtouseaforgetoimprovemetallicitems',
           races: 'Dwarf',
           classes: 'Farmer,Weaponsmith',
           inGame: true
         },
         {
-          skill: 'Stealth',
+          name: 'Stealth',
           description: 'Grantsachancetonotbedetectedbymonsters/NPCs',
-          races: 'Darkelf, Grayelf,Highelf,Hurthling, Mistelf,Ratling',
+          races: 'Dark Elf, Gray Elf,High Elf,Hurthling, Mist Elf,Ratling',
           classes:
             'Archer,Assassin, Barbarian,Beastfighter,Farmer,Fighter,Mindcrafter,Monk,Necromancer,Paladin,Thief,Wizard',
           inGame: true
         },
         {
-          skill: 'Survival',
+          name: 'Survival',
           description: 'Canbeusedtofindfoodinthewilderness',
           races: 'RatlingorbornunderFalcon',
           classes:
@@ -436,7 +455,7 @@ export default {
           inGame: false
         },
         {
-          skill: 'Swimming',
+          name: 'Swimming',
           description: 'Reducesdrowningdamage',
           races: 'Drakeling,Human,Ratling',
           classes:
@@ -444,14 +463,14 @@ export default {
           inGame: true
         },
         {
-          skill: 'Tactics',
+          name: 'Tactics',
           description: 'Increasestacticsbonusesanddecreasespenalties',
           races: 'None',
           classes: 'None',
           inGame: true
         },
         {
-          skill: 'Twoweaponcombat',
+          name: 'Twoweaponcombat',
           description:
             'Decreasesto-hitandenergycostpenaltieswhiledual-wielding',
           races: 'None',
@@ -459,23 +478,26 @@ export default {
           inGame: true
         },
         {
-          skill: 'Ventriloquism',
+          name: 'Ventriloquism',
           description: 'Canbeusedtoconfusemonstersforseveralturns',
           races: 'Gnome',
           classes: 'Wizard',
           inGame: false
         },
         {
-          skill: 'Woodcraft',
+          name: 'Woodcraft',
           description:
             'Decreasesthetimetocutdowntrees,increasescriticalhitchanceagainstplantmonsters',
           races: 'None',
           classes: 'Barbarian,Druid,Farmer,Ranger',
           inGame: false
         }
-      ]
+      ],
+      selectedClass: 'Fighter',
+      selectedRace: 'Human'
     }
   },
+  computed: {},
   mounted() {
     this.fart(this.jsonDump)
   }
