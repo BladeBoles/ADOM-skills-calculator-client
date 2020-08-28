@@ -933,7 +933,6 @@ export default {
     //     newArray.push(skillObject)
     //   })
     //   this.skillsList = newArray
-    //   console.log(JSON.stringify(this.skillsList))
     // }
   },
   computed: {
@@ -942,7 +941,6 @@ export default {
     },
     startingSkills() {
       const startingSkillsListArray = []
-      console.log(this.selectedRace, this.selectedClass)
       this.skillsList.forEach(skill => {
         if (
           skill.races.includes(this.selectedRace || 'All') &&
@@ -958,7 +956,6 @@ export default {
           startingSkillsListArray.push(skill.name)
         }
       })
-      console.log(startingSkillsListArray)
       return startingSkillsListArray
     },
     watch: {}
