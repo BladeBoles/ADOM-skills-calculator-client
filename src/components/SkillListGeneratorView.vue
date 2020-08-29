@@ -620,7 +620,8 @@ export default {
         }
       ],
       selectedClass: 'Archer',
-      selectedRace: 'Dark Elf'
+      selectedRace: 'Dark Elf',
+      randomString: 'Okay'
     }
   },
   computed: {
