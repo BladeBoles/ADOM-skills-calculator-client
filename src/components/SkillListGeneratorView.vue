@@ -623,22 +623,6 @@ export default {
       selectedRace: 'Dark Elf'
     }
   },
-  methods: {
-    // Find And Replace Text, only serious work here losers
-    // fart(toReplace) {
-    //   let newArray = []
-    //   toReplace.forEach(skillObject => {
-    //     if (typeof skillObject.races === 'string') {
-    //       skillObject.races = skillObject.races.split(',')
-    //     }
-    //     if (typeof skillObject.classes === 'string') {
-    //       skillObject.classes = skillObject.classes.split(',')
-    //     }
-    //     newArray.push(skillObject)
-    //   })
-    //   this.skillsList = newArray
-    // }
-  },
   computed: {
     selectedCombo() {
       return this.selectedRace + ' ' + this.selectedClass
@@ -668,9 +652,6 @@ export default {
       return startingSkillsListArray.sort((a, b) => a.name > b.name)
     },
     watch: {}
-  },
-  mounted() {
-    // this.fart(this.jsonDump)
   }
 }
 </script>
