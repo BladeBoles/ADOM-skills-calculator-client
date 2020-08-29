@@ -24,30 +24,33 @@
         </select>
       </div>
     </div>
-    <h3 class="character-choice-header">
-      Starting Skills for <span id="race-span">{{ selectedRace }} </span>
+    <div class="list-and-title">
+      <h3 class="character-choice-header">
+        Starting Skills for <span id="race-span">{{ selectedRace }} </span>
 
-      <span id="class-span">{{ selectedClass }}</span>
-    </h3>
-    <ul>
-      <li
-        :class="`skills-list-li-${skill.source}`"
-        v-for="skill in startingSkills"
-        :key="skill.name"
-      >
-        {{ skill.name }}
-        <span :class="`skills-list-li-span-${skill.source}`">{{
-          skill.source !== 'free' ? '(' + skill.source + ')' : null
-        }}</span>
-      </li>
-    </ul>
-    <p>
-      Bards start with random skills and merchants have slightly different
-      skills depending on specialty.
-    </p>
-    <p>
-      All characters train in listening, haggling, first aid and climbing.
-    </p>
+        <span id="class-span">{{ selectedClass }}</span
+        >:
+      </h3>
+      <ul>
+        <li
+          :class="`skills-list-li-${skill.source}`"
+          v-for="skill in startingSkills"
+          :key="skill.name"
+        >
+          {{ skill.name }}
+          <span :class="`skills-list-li-span-${skill.source}`">{{
+            skill.source !== 'free' ? '(' + skill.source + ')' : null
+          }}</span>
+        </li>
+      </ul>
+      <p>
+        Bards start with random skills and merchants have slightly different
+        skills depending on specialty.
+      </p>
+      <p>
+        All characters train in listening, haggling, first aid and climbing.
+      </p>
+    </div>
   </div>
 </template>
 
@@ -658,9 +661,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.app {
-  display: flex;
-  flex-direction: column;
+#nav {
+  font-size: 20px;
 }
 .container {
   display: flex;
@@ -670,18 +672,19 @@ export default {
 
 .character-choice-header,
 ul {
-  width: 41vw;
-}
-
-.choices {
-  display: flex;
-  flex-direction: column;
+  width: 40vw;
 }
 
 .choices-outer {
   display: flex;
 }
 
+.list-and-title {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: flex-start;
+}
 .race-class-select {
   margin-right: 10px;
   font-size: 1.4em;
