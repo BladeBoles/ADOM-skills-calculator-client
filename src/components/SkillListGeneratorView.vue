@@ -5,7 +5,7 @@
         <label class="race-class-label" for="player-races"></label>
         <select class="race-class-select" v-model="selectedRace">
           <option
-            v-for="playerRace in playableRaces.sort()"
+            v-for="playerRace in playableRaces"
             class="race-class-option"
             :key="playerRace"
             >{{ playerRace }}</option
@@ -16,7 +16,7 @@
         <label class="race-class-label" for="player-classes"></label>
         <select class="race-class-select" v-model="selectedClass">
           <option
-            v-for="playerClass in playableClasses.sort()"
+            v-for="playerClass in playableClasses"
             class="race-class-option"
             :key="playerClass"
             >{{ playerClass }}</option
@@ -154,43 +154,43 @@ export default {
         }
       ],
       playableRaces: [
-        'Human',
-        'Troll',
-        'High Elf',
-        'Gray Elf',
         'Dark Elf',
+        'Drakeling',
         'Dwarf',
         'Gnome',
+        'Gray Elf',
+        'High Elf',
+        'Human',
         'Hurthling',
-        'Orc',
-        'Drakeling',
         'Mist Elf',
+        'Orc',
         'Ratling',
+        'Troll',
         'No Race'
       ],
       playableClasses: [
+        'Archer',
+        'Assassin',
+        'Barbarian',
+        'Bard',
+        'Beastfighter',
+        'Chaos Knight',
+        'Druid',
+        'Duelist',
+        'Elementalist',
+        'Farmer',
         'Fighter',
+        'Healer',
+        'Merchant',
+        'Mindcrafter',
+        'Monk',
+        'Necromancer',
         'Paladin',
+        'Priest',
         'Ranger',
         'Thief',
-        'Assassin',
-        'Wizard',
-        'Priest',
-        'Bard',
-        'Monk',
-        'Healer',
         'Weaponsmith',
-        'Archer',
-        'Merchant',
-        'Farmer',
-        'Mindcrafter',
-        'Barbarian',
-        'Druid',
-        'Necromancer',
-        'Elementalist',
-        'Beastfighter',
-        'Duelist',
-        'Chaos Knight',
+        'Wizard',
         'No Class'
       ],
       skillsList: [
@@ -651,8 +651,7 @@ export default {
         }
       })
       return startingSkillsListArray.sort((a, b) => a.name > b.name)
-    },
-    watch: {}
+    }
   }
 }
 </script>
