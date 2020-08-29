@@ -685,7 +685,7 @@ export default {
 
 .character-choice-header,
 ul {
-  width: 40vw;
+  width: 41vw;
 }
 
 .choices {
