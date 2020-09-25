@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link id="router-home" to="/">Home</router-link>
+      <router-link id="router-home" to="/">Skill Calculator</router-link>
       |
-      <router-link id="router-about" to="/about">About</router-link>
+      <router-link id="router-about" to="/skill-picker"
+        >Skill Picker</router-link
+      >
     </div>
     <router-view />
   </div>

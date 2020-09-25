@@ -1,18 +1,26 @@
 <template>
-  <div class="about">
-    <div
-      v-for="skill in skillsList"
-      @click="event => skillSelected(event)"
-      :value="skill.name"
-      :key="skill.name"
-      class="checkbox-div"
-    >
-      <input :key="skill.name" type="checkbox" :value="skill.name" />
-      <label :key="skill.name" for="checkbox">{{ skill.name }}</label>
+  <div class="skill-picker">
+    <div class="choices-div">
+      <div
+        v-for="skill in skillsList"
+        @click="event => skillSelected(event)"
+        :value="skill.name"
+        :key="skill.name + 'div'"
+        class="checkbox-div"
+      >
+        <input
+          :key="skill.name + 'input'"
+          type="checkbox"
+          :value="skill.name"
+        />
+        <label :key="skill.name + 'label'" for="checkbox">{{
+          skill.name
+        }}</label>
+      </div>
     </div>
     <div class="combo-list-div">
       <ul>
-        <li v-for="combo in this.possibleCombos" :key="combo">
+        <li v-for="combo in this.possibleCombos" :key="combo + Math.random()">
           {{ combo }}
         </li>
       </ul>
@@ -593,7 +601,7 @@ export default {
     }
   },
   methods: {
-    skillSelected(event) {
+    skillSelected(event = {}) {
       console.log(event.target.value)
       let skillIndex = this.wantedSkills.indexOf(event.target.value)
       console.log(skillIndex)
@@ -605,7 +613,7 @@ export default {
       this.possibleCombos = this.findValidCombos(this.wantedSkills)
       console.log(this.possibleCombos)
     },
-    findValidCombos(desiredSkills) {
+    findValidCombos(desiredSkills = {}) {
       try {
         console.log('yo')
         // get desired skills list in an array
@@ -614,7 +622,9 @@ export default {
         let firstSkillName = desiredSkills.slice(0, 1)[0]
         console.log(firstSkillName)
 
-        let firstSkillObject = this.skillsList.find(
+        let firstSkillObject = {}
+
+        firstSkillObject = this.skillsList.find(
           skillName => firstSkillName === skillName.name
         )
         let possibleCombos = []
@@ -656,7 +666,7 @@ export default {
 
       // return the finished possibilities
 
-      console.log(desiredSkills, firstSkill)
+      console.log(desiredSkills)
     },
     allCombosForRace(playableRace) {
       let allCombos = []
@@ -700,8 +710,8 @@ export default {
 }
 </script>
 <style scoped>
-div.about {
+div.skill-picker {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 </style>
