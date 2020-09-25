@@ -16,12 +16,11 @@
       <div class="choices-div">
         <div
           v-for="skill in skillsList"
-          @click="event => skillSelected(event)"
-          :value="skill.name"
           :key="skill.name + 'div'"
           class="checkbox-div"
         >
           <input
+            @click="event => skillSelected(event)"
             :key="skill.name + 'input'"
             type="checkbox"
             :value="skill.name"
