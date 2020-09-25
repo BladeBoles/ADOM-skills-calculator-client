@@ -1,29 +1,43 @@
 <template>
-  <div class="skill-picker">
-    <div class="choices-div">
-      <div
-        v-for="skill in skillsList"
-        @click="event => skillSelected(event)"
-        :value="skill.name"
-        :key="skill.name + 'div'"
-        class="checkbox-div"
-      >
-        <input
-          :key="skill.name + 'input'"
-          type="checkbox"
+  <div>
+    <p>
+      Bards start with random skills and merchants have slightly different
+      skills depending on specialty.
+    </p>
+    <p>
+      All characters train in listening, haggling, first aid and climbing so
+      they are not included.
+    </p>
+    <p>
+      Some skills can only be obtained in game, so these are not included in
+      this list.
+    </p>
+    <div class="skill-picker">
+      <div class="choices-div">
+        <div
+          v-for="skill in skillsList"
+          @click="event => skillSelected(event)"
           :value="skill.name"
-        />
-        <label :key="skill.name + 'label'" for="checkbox">{{
-          skill.name
-        }}</label>
+          :key="skill.name + 'div'"
+          class="checkbox-div"
+        >
+          <input
+            :key="skill.name + 'input'"
+            type="checkbox"
+            :value="skill.name"
+          />
+          <label :key="skill.name + 'label'" for="checkbox">{{
+            skill.name
+          }}</label>
+        </div>
       </div>
-    </div>
-    <div class="combo-list-div">
-      <ul>
-        <li v-for="combo in this.possibleCombos" :key="combo + Math.random()">
-          {{ combo }}
-        </li>
-      </ul>
+      <div class="combo-list-div">
+        <ul>
+          <li v-for="combo in this.possibleCombos" :key="combo + Math.random()">
+            {{ combo }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -139,8 +153,7 @@ export default {
         'Mist Elf',
         'Orc',
         'Ratling',
-        'Troll',
-        'No Race'
+        'Troll'
       ],
       playableClasses: [
         'Archer',
@@ -164,8 +177,7 @@ export default {
         'Ranger',
         'Thief',
         'Weaponsmith',
-        'Wizard',
-        'No Class'
+        'Wizard'
       ],
       skillsList: [
         {
@@ -235,14 +247,14 @@ export default {
           classes: ['Farmer'],
           inGame: true
         },
-        {
-          name: 'Climbing',
-          description:
-            'Grantsachancetoclimboutofpits;prerequisitetoentertheRift',
-          races: ['All'],
-          classes: ['All'],
-          inGame: false
-        },
+        // {
+        //   name: 'Climbing',
+        //   description:
+        //     'Grantsachancetoclimboutofpits;prerequisitetoentertheRift',
+        //   races: ['All'],
+        //   classes: ['All'],
+        //   inGame: false
+        // },
         {
           name: 'Concentration',
           description:
@@ -271,13 +283,13 @@ export default {
           classes: ['Healer', 'Farmer'],
           inGame: false
         },
-        {
-          name: 'Courage',
-          description: 'Reducesto-hitpenaltieswhenfightingwithmultipleenemies',
-          races: ['None'],
-          classes: ['None'],
-          inGame: true
-        },
+        // {
+        //   name: 'Courage',
+        //   description: 'Reducesto-hitpenaltieswhenfightingwithmultipleenemies',
+        //   races: ['None'],
+        //   classes: ['None'],
+        //   inGame: true
+        // },
         {
           name: 'Detect Item Status',
           description: 'GivesachancetoautomaticallyidentifyB/U/Cstatusofanitem',
@@ -334,13 +346,13 @@ export default {
           ],
           inGame: false
         },
-        {
-          name: 'First Aid',
-          description: 'CanbeusedtorestorerecentlylostHP',
-          races: ['All'],
-          classes: ['All'],
-          inGame: false
-        },
+        // {
+        //   name: 'First Aid',
+        //   description: 'CanbeusedtorestorerecentlylostHP',
+        //   races: ['All'],
+        //   classes: ['All'],
+        //   inGame: false
+        // },
         {
           name: 'Fletchery',
           description: 'Allowscreatingammunitionusingfletcherysets',
@@ -372,13 +384,13 @@ export default {
           classes: ['Elementalist', 'Merchant', 'Mindcrafter'],
           inGame: false
         },
-        {
-          name: 'Haggling',
-          description: 'Canbeusedtohagglewithshopkeepers',
-          races: ['All'],
-          classes: ['All'],
-          inGame: false
-        },
+        // {
+        //   name: 'Haggling',
+        //   description: 'Canbeusedtohagglewithshopkeepers',
+        //   races: ['All'],
+        //   classes: ['All'],
+        //   inGame: false
+        // },
         {
           name: 'Healing',
           description: 'PassivelyrestoresHP',
@@ -423,14 +435,14 @@ export default {
           classes: ['Duelist', 'Paladin'],
           inGame: true
         },
-        {
-          name: 'Listening',
-          description:
-            'Increasesthechanceofreceivingaudiblemessages(e.g.poolorriversounds)',
-          races: ['All'],
-          classes: ['All'],
-          inGame: false
-        },
+        // {
+        //   name: 'Listening',
+        //   description:
+        //     'Increasesthechanceofreceivingaudiblemessages(e.g.poolorriversounds)',
+        //   races: ['All'],
+        //   classes: ['All'],
+        //   inGame: false
+        // },
         {
           name: 'Literacy',
           description: 'Allowsreadingscrolls,spellbooksandinscriptionsongraves',
@@ -696,12 +708,7 @@ export default {
       )
       return allCombos
     },
-    // removeDuplicateCombos(combosArray, key) {
-    //   return combosArray.filter(
-    //     (obj, index, self) =>
-    //       index === self.findIndex(el => el[key] === obj[key])
-    //   )
-    // }
+
     removeDuplicateStrings(array) {
       return array.filter((a, b) => array.indexOf(a) === b)
     }
