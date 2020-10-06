@@ -56,10 +56,8 @@
 
 <script>
 export default {
-  name: 'skillsListGeneratorView',
-  props: {
-    msg: String
-  },
+  name: 'SkillCalculator',
+
   data() {
     return {
       raceObjects: [

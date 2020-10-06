@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'SkillsPicker',
+  name: 'SkillPicker',
   data() {
     return {
       raceObjects: [
