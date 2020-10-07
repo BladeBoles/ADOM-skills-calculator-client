@@ -76,7 +76,7 @@ export default {
       randomString: 'Okay'
     }
   },
-  mounted() {
+  created() {
     playableRaces.push('No Race')
     playableClasses.push('No Class')
   },
