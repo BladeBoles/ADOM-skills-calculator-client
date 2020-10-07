@@ -77,8 +77,12 @@ export default {
     }
   },
   created() {
-    playableRaces.push('No Race')
-    playableClasses.push('No Class')
+    if (!playableRaces.includes('No Race')) {
+      playableRaces.push('No Race')
+    }
+    if (!playableClasses.includes('No Class')) {
+      playableClasses.push('No Class')
+    }
   },
   computed: {
     selectedCombo() {
@@ -121,6 +125,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100vw;
 }
 
 .character-choice-header,
@@ -135,7 +140,7 @@ ul {
 .list-and-title {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 350px;
   align-items: flex-start;
 }
 .race-class-select {
