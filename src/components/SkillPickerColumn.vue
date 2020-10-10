@@ -1,11 +1,15 @@
 <template>
   <div class="column-div">
     <h3>Choose Your Skills:</h3>
-    <SkillChoiceModal />
+    <SkillChoiceModal @skill-chosen="showChosen" />
     <ul>
-      <li v-for="skill in chosenSkills" :key="skill.name">
+      <li v-for="(skill, index) in chosenSkills" :key="skill.name">
         <span class="skill-name-span">{{ skill.name }}</span
-        ><font-awesome-icon id="minus" icon="minus-square" />
+        ><font-awesome-icon
+          id="minus"
+          icon="minus-square"
+          @click="removeSkill(index)"
+        />
       </li>
     </ul>
   </div>
@@ -23,6 +27,15 @@ export default {
         { name: 'Healing' },
         { name: 'Alchemy' }
       ]
+    }
+  },
+  methods: {
+    showChosen: function(chosenSkill) {
+      this.chosenSkills.push({ name: chosenSkill })
+    },
+    removeSkill: function(skillToRemove) {
+      console.log(skillToRemove)
+      this.chosenSkills.splice(skillToRemove, 1)
     }
   }
 }

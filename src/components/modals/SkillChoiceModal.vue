@@ -10,6 +10,11 @@
                 class="choice-list-li"
                 v-for="skill in skillsList"
                 :key="skill.name"
+                @click.prevent="
+                  // eslint-disable-next-line prettier/prettier
+                  $emit('skill-chosen', skill.name); 
+                  chooseSkill(skill.name)
+                "
               >
                 {{ skill.name }}
               </li>
@@ -34,6 +39,12 @@ export default {
       isOpen: false,
       skillsList
     }
+  },
+  methods: {
+    chooseSkill: function(chosenSkill) {
+      console.log(chosenSkill)
+      this.isOpen = false
+    }
   }
 }
 </script>
@@ -46,8 +57,24 @@ export default {
   font-size: 20px;
 }
 
+.choice-list-ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style-type: none;
+}
+
 .choice-list-li {
-  font-size: 16px;
+  font-size: 24px;
+  padding: 10px 20px;
+}
+
+.choice-list-li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  background-color: burlywood;
+  border: 1px transparent;
+  border-radius: 1em;
 }
 
 #plus-circle {
@@ -65,9 +92,12 @@ export default {
 }
 
 .modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: auto;
   max-height: 70vh;
-  width: 500px;
+  width: 80vw;
   margin: 0px auto;
   padding: 20px;
   background-color: #fff;
