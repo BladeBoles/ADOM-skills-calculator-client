@@ -7,15 +7,22 @@
 
       <CalculateCombosButton>Calculate Combos</CalculateCombosButton>
     </form>
+    <PossibleCombosList :combosList="combosList" />
   </div>
 </template>
 
 <script>
 import SkillPickerColumn from '../components/SkillPickerColumn'
 import CalculateCombosButton from '../components/CalculateCombosButton'
+import PossibleCombosList from '../components/PossibleCombosList'
 export default {
   name: 'NewSkillsPicker',
-  components: { SkillPickerColumn, CalculateCombosButton }
+  components: { SkillPickerColumn, CalculateCombosButton, PossibleCombosList },
+  data() {
+    return {
+      combosList: ['Kobold Dreamweaver', 'Orc Scientist', 'Sweaty Marauder']
+    }
+  }
 }
 </script>
 
