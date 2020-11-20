@@ -1,6 +1,8 @@
 <template>
   <ul>
-    <li v-for="combo in this.combosList" :key="combo">{{ combo }}</li>
+    <li v-for="(combo, index) in combosList" :key="`${combo}${index}`">
+      {{ combo }}
+    </li>
   </ul>
 </template>
 

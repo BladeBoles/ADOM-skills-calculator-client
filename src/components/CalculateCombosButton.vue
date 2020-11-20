@@ -9,7 +9,7 @@ export default {
   name: 'CalculateCombosbutton',
   methods: {
     submit() {
-      console.log('I like hot dogs')
+      this.$emit('click')
     }
   }
 }

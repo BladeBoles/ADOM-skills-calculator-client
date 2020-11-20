@@ -5,9 +5,9 @@
         <label class="race-class-label" for="player-races"></label>
         <select class="race-class-select" v-model="selectedRace">
           <option
-            v-for="playerRace in playableRaces"
+            v-for="(playerRace, index) in playableRaces"
             class="race-class-option"
-            :key="playerRace"
+            :key="`${playerRace}${index}`"
             >{{ playerRace }}</option
           >
         </select>
@@ -16,9 +16,9 @@
         <label class="race-class-label" for="player-classes"></label>
         <select class="race-class-select" v-model="selectedClass">
           <option
-            v-for="playerClass in playableClasses"
+            v-for="(playerClass, index) in playableClasses"
             class="race-class-option"
-            :key="playerClass"
+            :key="`${playerClass}${index}`"
             >{{ playerClass }}</option
           >
         </select>
@@ -34,8 +34,8 @@
       <ul>
         <li
           :class="`skills-list-li-${skill.source}`"
-          v-for="skill in startingSkills"
-          :key="skill.name"
+          v-for="(skill, index) in startingSkills"
+          :key="`${skill.name}${index}`"
         >
           {{ skill.name }}
           <span :class="`skills-list-li-span-${skill.source}`">{{

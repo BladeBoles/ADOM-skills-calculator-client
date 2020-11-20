@@ -3,7 +3,7 @@
     <h3>Choose Your Skills:</h3>
     <SkillChoiceModal @skill-chosen="showChosen" />
     <ul>
-      <li v-for="(skill, index) in chosenSkills" :key="skill.name">
+      <li v-for="(skill, index) in chosenSkills" :key="`${skill.name}${index}`">
         <span class="skill-name-span">{{ skill.name }}</span
         ><font-awesome-icon
           id="minus"
@@ -32,10 +32,12 @@ export default {
   methods: {
     showChosen: function(chosenSkill) {
       this.chosenSkills.push({ name: chosenSkill })
+      this.$emit('skill-added', this.chosenSkills)
     },
     removeSkill: function(skillToRemove) {
       console.log(skillToRemove)
       this.chosenSkills.splice(skillToRemove, 1)
+      this.$emit('skill-added', this.chosenSkills)
     }
   }
 }

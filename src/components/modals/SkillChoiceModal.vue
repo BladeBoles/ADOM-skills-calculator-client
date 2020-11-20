@@ -8,8 +8,8 @@
             <ul class="choice-list-ul">
               <li
                 class="choice-list-li"
-                v-for="skill in skillsList"
-                :key="skill.name"
+                v-for="(skill, index) in skillsList"
+                :key="`${skill.name}${index}`"
                 @click.prevent="
                   // eslint-disable-next-line prettier/prettier
                   $emit('skill-chosen', skill.name); 
