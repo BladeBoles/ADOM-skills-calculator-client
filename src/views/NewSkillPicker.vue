@@ -58,9 +58,6 @@ export default {
     },
     findValidCombos(desiredSkills = {}) {
       try {
-        console.log('yo')
-        // get desired skills list in an array
-
         // for the first skill, calculate every possible combo and store it in an array
         let firstSkillName = desiredSkills.slice(0, 1)[0].name
         console.log(firstSkillName)
@@ -80,6 +77,8 @@ export default {
         firstSkillObject.classes.forEach(playerClass =>
           possibleCombos.push(...this.allCombosForClass(playerClass))
         )
+
+        // for each other skill, calculate every combo but only add it to the array if it already exists
 
         desiredSkills.forEach(skill => {
           let skillObject = this.skillsList.find(
@@ -104,12 +103,6 @@ export default {
       } catch (error) {
         console.log('error: ', error)
       }
-
-      // for each other skill, calculate every combo but only add it to the array if it already exists
-
-      // return the finished possibilities
-
-      console.log(desiredSkills)
     },
     allCombosForRace(playableRace) {
       let allCombos = []

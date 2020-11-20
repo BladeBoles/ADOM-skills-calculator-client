@@ -537,4 +537,43 @@ const skillsList = [
   }
 ]
 
-export { raceObjects, playableRaces, playableClasses, skillsList }
+const allCombinations = () => {
+  let allCombosArray = []
+  playableRaces.forEach(race => {
+    playableClasses.forEach(playableClass => {
+      allCombosArray.push({
+        race,
+        playableClass,
+        skills: [],
+        doubleSkills: []
+      })
+    })
+  })
+
+  skillsList.forEach(skill => {
+    allCombosArray.forEach(combo => {
+      if (
+        skill.races.includes(combo.race) &&
+        skill.classes.includes(combo.playableClass)
+      ) {
+        return combo.doubleSkills.push(skill.name)
+      }
+
+      if (
+        skill.races.includes(combo.race) ||
+        skill.classes.includes(combo.playableClass)
+      ) {
+        return combo.skills.push(skill.name)
+      }
+    })
+  })
+
+  return allCombosArray
+}
+export {
+  raceObjects,
+  playableRaces,
+  playableClasses,
+  skillsList,
+  allCombinations
+}
