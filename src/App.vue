@@ -6,7 +6,11 @@
       >
       |
       <router-link id="router-about" to="/skill-picker"
-        >Skill Picker</router-link
+        >Skill Picker
+      </router-link>
+      <span> |</span>
+      <router-link id="router-about" to="/new-skill-picker"
+        >New Skill Picker</router-link
       >
     </div>
     <router-view />
@@ -42,5 +46,9 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+span {
+  padding-left: 20px;
 }
 </style>
