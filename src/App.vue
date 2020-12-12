@@ -8,10 +8,6 @@
       <router-link id="router-about" to="/skill-picker"
         >Skill Picker
       </router-link>
-      <span> |</span>
-      <router-link id="router-about" to="/new-skill-picker"
-        >New Skill Picker</router-link
-      >
     </div>
     <router-view />
   </div>

@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     chooseSkill: function(chosenSkill) {
-      console.log(chosenSkill)
       this.isOpen = false
     }
   }
