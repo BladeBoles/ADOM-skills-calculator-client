@@ -27,7 +27,12 @@ export default {
   },
   methods: {
     showChosen: function(chosenSkill) {
-      this.chosenSkills.push({ name: chosenSkill })
+      if (
+        this.chosenSkills.filter(skill => skill.name === chosenSkill).length ===
+        0
+      ) {
+        this.chosenSkills.push({ name: chosenSkill })
+      }
       this.$emit('skill-added', this.chosenSkills)
     },
     removeSkill: function(skillToRemove) {
