@@ -2,7 +2,7 @@
   <div class="double-columns-container">
     <form class="skill-picker-form" submit.prevent="submit">
       <div class="columns-component-div">
-        <SkillPickerColumn @skill-added="updateCombos($event)" />
+        <SkillPickerColumn @skill-added="updateWantedSkills($event)" />
       </div>
 
       <CalculateCombosButton @click="calculateCombos"
@@ -21,7 +21,8 @@ import {
   raceObjects,
   playableRaces,
   playableClasses,
-  skillsList
+  skillsList,
+  allCombinations
 } from '../tables/skills.js'
 
 export default {
@@ -29,101 +30,50 @@ export default {
   components: { SkillPickerColumn, CalculateCombosButton, PossibleCombosList },
   data() {
     return {
-      raceObjects,
-      playableRaces,
-      playableClasses,
-      skillsList,
       wantedSkills: [],
-      possibleCombos: ['Kobold Dreamweaver', 'Orc Scientist', 'Sweaty Marauder']
+      allCombos: [],
+      possibleCombos: []
     }
   },
   methods: {
-    updateCombos(newSkillsList) {
+    updateWantedSkills(newSkillsList) {
       this.wantedSkills = newSkillsList
     },
     calculateCombos() {
       this.findValidCombos(this.wantedSkills)
     },
     skillSelected(event = {}) {
-      console.log(event.target.value)
       let skillIndex = this.wantedSkills.indexOf(event.target.value)
-      console.log(skillIndex)
       if (skillIndex === -1) this.wantedSkills.push(event.target.value)
       else {
         this.wantedSkills.splice(skillIndex, 1)
       }
 
       this.possibleCombos = this.findValidCombos(this.wantedSkills)
-      console.log(this.possibleCombos)
     },
-    findValidCombos(desiredSkills = {}) {
+    findValidCombos(desiredSkills = []) {
       try {
-        // for the first skill, calculate every possible combo and store it in an array
-        let firstSkillName = desiredSkills.slice(0, 1)[0].name
-        console.log(firstSkillName)
-
-        let firstSkillObject = {}
-
-        firstSkillObject = this.skillsList.find(
-          skillName => firstSkillName === skillName.name
-        )
-        let possibleCombos = []
-        let newCompareArray = []
-        let answerArray = []
-
-        firstSkillObject.races.forEach(race => {
-          possibleCombos.push(...this.allCombosForRace(race))
+        const comboPossibilities = []
+        this.allCombos.forEach(combination => {
+          if (
+            desiredSkills.every(skill =>
+              combination.skills.includes(skill.name)
+            )
+          ) {
+            comboPossibilities.push(combination)
+          }
         })
-        firstSkillObject.classes.forEach(playerClass =>
-          possibleCombos.push(...this.allCombosForClass(playerClass))
-        )
-
-        // for each other skill, calculate every combo but only add it to the array if it already exists
-
-        desiredSkills.forEach(skill => {
-          let skillObject = this.skillsList.find(
-            skillName => skill.name === skillName.name
-          )
-          let allRaceCombos = []
-          skillObject.races.forEach(race => {
-            allRaceCombos = [...this.allCombosForRace(race), ...allRaceCombos]
-          })
-          let allClassCombos = []
-          skillObject.classes.forEach(playerClass => {
-            allClassCombos = [
-              ...this.allCombosForClass(playerClass),
-              ...allClassCombos
-            ]
-          })
-          possibleCombos = possibleCombos.filter(combo => {
-            return allRaceCombos.concat(allClassCombos).indexOf(combo) !== -1
-          })
-        })
-        this.possibleCombos = possibleCombos
+        this.possibleCombos = comboPossibilities
       } catch (error) {
         console.log('error: ', error)
       }
     },
-    allCombosForRace(playableRace) {
-      let allCombos = []
-      this.playableClasses.forEach(playableClass => {
-        if (playableRace !== 'None')
-          allCombos.push(`${playableRace} ${playableClass}`)
-      })
-
-      return allCombos
-    },
-    allCombosForClass(playableClass) {
-      let allCombos = []
-      this.playableRaces.forEach(playableRace =>
-        allCombos.push(`${playableRace} ${playableClass}`)
-      )
-      return allCombos
-    },
-
     removeDuplicateStrings(array) {
       return array.filter((a, b) => array.indexOf(a) === b)
     }
+  },
+  mounted() {
+    this.allCombos = allCombinations()
   }
 }
 </script>

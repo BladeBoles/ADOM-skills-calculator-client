@@ -22,11 +22,7 @@ export default {
   components: { SkillChoiceModal },
   data: function() {
     return {
-      chosenSkills: [
-        { name: 'Alertness' },
-        { name: 'Healing' },
-        { name: 'Alchemy' }
-      ]
+      chosenSkills: []
     }
   },
   methods: {
