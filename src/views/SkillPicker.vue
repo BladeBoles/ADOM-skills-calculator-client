@@ -56,8 +56,10 @@ export default {
         const comboPossibilities = []
         this.allCombos.forEach(combination => {
           if (
-            desiredSkills.every(skill =>
-              combination.skills.includes(skill.name)
+            desiredSkills.every(
+              skill =>
+                combination.skills.includes(skill.name) ||
+                combination.doubleSkills.includes(skill.name)
             )
           ) {
             comboPossibilities.push(combination)
